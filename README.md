@@ -1,56 +1,40 @@
-E-ComAssist: AI-Powered E-Commerce Chatbot
+# E-ComAssist: AI-Powered E-Commerce Chatbot
 
-![alt text](PLACE_YOUR_SCREENSHOT_URL_OR_PATH_HERE)
+E-ComAssist is a full-stack, AI-powered conversational assistant designed to automate 24/7 customer support for e-commerce platforms. It leverages a sophisticated Natural Language Understanding (NLU) backend from Rasa and a modern, responsive frontend built with Next.js and React. This project demonstrates a decoupled architecture, real-time API integrations, and a professional user interface, showcasing a complete end-to-end development cycle.
 
-E-ComAssist is a full-stack, AI-powered conversational assistant designed to automate 24/7 customer support for e-commerce platforms. It leverages a sophisticated Natural Language Understanding (NLU) backend from Rasa and a modern, responsive frontend built with Next.js and React.
+## Key Features
 
-This project demonstrates a decoupled architecture, real-time API integrations, and a professional user interface, showcasing a complete end-to-end development cycle.
+  * **Intent Recognition:** Accurately classifies user requests into e-commerce intents, such as `check_order_status`, `request_return`, and `faq_shipping`.
+  * **Entity Extraction:** Extracts key information from user messages, including `order_number` and `refund_reason`.
+  * **Real-Time API Integration:** Uses Python-based custom actions to connect with backend e-commerce systems (like Shopify or WooCommerce) to fetch live order data. An example is `action_check_order_status` which simulates fetching an order status.
+  * **Contextual Dialogue Management:** Manages multi-turn conversations, remembers context (like an order number using slots), and handles conversational digressions based on defined stories and rules.
+  * **Professional Frontend:** A responsive, server-rendered user interface built with Next.js provides a fast and modern user experience, integrating a Rasa chat widget.
 
-Key Features
-
-Intent Recognition: Accurately classifies user requests into 6+ e-commerce intents (e.g., check_order_status, request_return, faq_shipping).
-
-Entity Extraction: Extracts key information from user messages, such as order_number and refund_reason.
-
-Real-Time API Integration: Uses Python-based custom actions to connect with backend e-commerce systems (like Shopify or WooCommerce) to fetch live order data.
-
-Contextual Dialogue Management: Manages multi-turn conversations, remembers context (like an order number), and handles conversational digressions.
-
-Professional Frontend: A responsive, server-rendered user interface built with Next.js provides a fast and modern user experience.
-
-Tech Stack & Architecture
+## Tech Stack & Architecture
 
 This project is structured as a monorepo with two distinct applications: a Python-based backend and a TypeScript-based frontend.
 
-Backend (/Backend)
+### Backend (`/Backend`)
 
-Rasa: The core open-source framework for building the conversational AI.
+  * **Rasa:** The core open-source framework for building the conversational AI.
+      * **Rasa NLU:** Handles intent classification and entity extraction. The NLU pipeline uses components like `DIETClassifier` for high accuracy.
+      * **Rasa Core:** Manages dialogue flow, context, and determines the bot's responses and actions based on pre-defined stories and rules.
+  * **Action Server:** A separate Python server that runs custom code (`actions.py`) to execute logic, perform API calls, and interact with databases.
+  * **Python:** The language for writing custom backend logic and API integrations.
 
-Rasa NLU: Handles intent classification and entity extraction. The NLU pipeline uses components like DIETClassifier for high accuracy.
+### Frontend (`/FrontEnd`)
 
-Rasa Core: Manages dialogue flow, context, and determines the bot's responses and actions based on pre-defined stories and rules.
+  * **Next.js:** A powerful React framework for building fast, server-rendered applications.
+  * **React:** The core UI library for building the user interface.
+  * **TypeScript:** Adds static typing to JavaScript for improved code quality and maintainability.
+  * **Tailwind CSS:** A utility-first CSS framework for rapidly building modern, responsive designs.
+  * **@rasahq/chat-widget-react:** The official React component for rendering the Rasa chat widget in the frontend.
 
-Action Server: A separate Python server that runs custom code (actions.py) to execute logic, perform API calls, and interact with databases.
+### System Architecture Diagram
 
-Python: The language for writing custom backend logic and API integrations.
+The system follows a decoupled, service-oriented architecture:
 
-Frontend (/FrontEnd)
-
-Next.js: A powerful React framework for building fast, server-rendered applications.
-
-React: The core UI library for building the user interface.
-
-TypeScript: Adds static typing to JavaScript for improved code quality and maintainability.
-
-Tailwind CSS: A utility-first CSS framework for rapidly building modern, responsive designs.
-
-@rasahq/chat-widget-react: The official React component for rendering the Rasa chat widget in the frontend.
-
-System Architecture Diagram
-
-The system follows a decoupled, service-oriented architecture.
-
-Generated code
+```
 +----------------+      +-------------------+      +------------------+      +-----------------+
 | User (Browser) | <--> | Frontend (Next.js)| <--> | Rasa Server (NLU)| <--> |  External APIs  |
 |                |      | localhost:3000    |      | localhost:5005   |      | (e.g., Shopify) |
@@ -63,136 +47,161 @@ Generated code
                                                   | (Python logic)       |
                                                   | localhost:5055       |
                                                   +----------------------+
+```
 
-Getting Started
+## Getting Started
 
 Follow these instructions to set up and run the project locally.
 
-Prerequisites
+### Prerequisites
 
-Git
+  * Git
+  * Python (version 3.8 - 3.10)
+  * Node.js (version 18.x or later)
 
-Python (version 3.8 - 3.10)
+### Installation
 
-Node.js (version 18.x or later)
+1.  **Clone the repository:**
 
-Installation
+    ```bash
+    git clone <YOUR_REPOSITORY_URL>
+    cd E-ComAssist
+    ```
 
-Clone the repository:
+2.  **Set up the Backend (Rasa):**
 
-Generated bash
-git clone <YOUR_REPOSITORY_URL>
-cd E-ComAssist
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+    ```bash
+    cd Backend
 
-Set up the Backend (Rasa):
+    # Create a Python virtual environment
+    python -m venv venv
 
-Generated bash
-cd Backend
+    # Activate the virtual environment
+    # On Windows:
+    venv\Scripts\activate
+    # On macOS/Linux:
+    source venv/bin/activate
 
-# Create a Python virtual environment
-python -m venv venv
+    # Install Python dependencies
+    pip install -r requirements.txt
+    ```
 
-# Activate the virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
+3.  **Set up the Frontend (Next.js):**
 
-# Install Python dependencies
-pip install -r requirements.txt
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+    ```bash
+    cd ../FrontEnd
 
-Set up the Frontend (Next.js):
+    # Install Node.js dependencies
+    npm install
+    ```
 
-Generated bash
-cd ../FrontEnd
-
-# Install Node.js dependencies
-npm install
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-Running the Application
+## Running the Application
 
 You will need three separate terminals to run the complete application.
 
-1. Run the Rasa Server
+1.  **Run the Rasa Server**
+    Navigate to the `/Backend` directory. Ensure your virtual environment is activated. This command starts the NLU and dialogue management server and loads the CORS configuration from `credentials.yml`.
 
-Navigate to the /Backend directory.
+    ```bash
+    rasa run --enable-api --credentials credentials.yml
+    ```
 
-Ensure your virtual environment is activated.
+2.  **Run the Action Server**
+    Navigate to the `/Backend` directory. Ensure your virtual environment is activated. This command runs your custom Python code (`actions.py`).
 
-This command starts the NLU and dialogue management server and loads the CORS configuration from credentials.yml.
+    ```bash
+    rasa run actions
+    ```
 
-Generated bash
-rasa run --enable-api --credentials credentials.yml
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-2. Run the Action Server
+3.  **Run the Frontend Server**
+    Navigate to the `/FrontEnd` directory. This command starts the Next.js development server.
 
-Navigate to the /Backend directory.
+    ```bash
+    npm run dev
+    ```
 
-Ensure your virtual environment is activated.
+You can now access the application at [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your web browser\!
 
-This command runs your custom Python code (actions.py).
+## How It Works (System Flow)
 
-Generated bash
-rasa run actions
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-3. Run the Frontend Server
+1.  **User Interaction:** The user types a message into the chat widget on the Next.js frontend.
+2.  **API Call:** The frontend sends the user's message to the Rasa Server's `/socket.io` endpoint, configured to `http://localhost:5005`.
+3.  **NLU Processing:** Rasa NLU processes the message to identify the intent (e.g., `check_order_status`) and any relevant entities (e.g., `order_number: "12345"`).
+4.  **Dialogue Management:** Rasa Core receives the parsed data and, based on the conversational story and rules, decides what to do next. If the response is simple text, it's sent directly back to the user. If the response requires custom logic (like fetching order data), Rasa Core calls the Action Server.
+5.  **Custom Action Execution:** The Action Server finds the corresponding Python function (e.g., `action_check_order_status`). This function extracts the `order_number` from the slot and makes a simulated API call to a Shopify endpoint. In a real application, this would fetch live order data.
+6.  **Response Delivery:** The action's response is sent back through Rasa Core and finally to the user's interface, completing the loop.
 
-Navigate to the /FrontEnd directory.
+## Custom Actions Example
 
-This command starts the Next.js development server.
+The `action_check_order_status` in `Backend/actions/actions.py` demonstrates how custom logic and external API calls can be integrated:
 
-Generated bash
-npm run dev
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+```python
+import requests
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
 
-You can now access the application at http://localhost:3000 in your web browser!
+SHOPIFY_API_ENDPOINT = "https://your-store.myshopify.com/admin/api/2023-10/orders.json"
+SHOPIFY_API_KEY = "YOUR_SHOPIFY_API_KEY"
+SHOPIFY_API_PASSWORD = "YOUR_SHOPIFY_APP_PASSWORD"
 
-How It Works
 
-User Interaction: The user types a message into the chat widget on the Next.js frontend.
+class ActionCheckOrderStatus(Action):
 
-API Call: The frontend sends the user's message to the Rasa Server's /socket.io endpoint.
+    def name(self) -> Text:
+        return "action_check_order_status"
 
-NLU Processing: Rasa NLU processes the message to identify the intent and any relevant entities (e.g., intent: check_order_status, entity: order_number: "12345").
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-Dialogue Management: Rasa Core receives the parsed data and, based on the conversational story, decides what to do next.
+        order_number = tracker.get_slot("order_number")
 
-If the response is simple text, it's sent directly back to the user.
+        if not order_number:
+            dispatcher.utter_message(response="utter_ask_order_number")
+            return []
 
-If the response requires custom logic (like fetching order data), Rasa Core calls the Action Server.
+        # Simulated API call for demonstration purposes
+        message = f"Okay, I've checked the status for order {order_number}. It is currently 'shipped' and should arrive in 3 business days."
+        
+        dispatcher.utter_message(text=message)
 
-Custom Action Execution: The Action Server finds the corresponding Python function (e.g., action_check_order_status). This function extracts the order_number from the slot and makes a simulated API call.
+        return []
+```
 
-Response Delivery: The action's response is sent back through Rasa Core and finally to the user's interface, completing the loop.
+This action retrieves the `order_number` from the conversation, and if available, provides a simulated order status. In a production environment, the commented-out `requests.get` call would be used to interact with a real e-commerce API.
+
+## Project Structure
+
+  * **`Backend/`**: Contains the Rasa-based conversational AI, including NLU training data, dialogue stories, rules, custom actions, and configuration files.
+  * **`FrontEnd/`**: Houses the Next.js and React application for the user interface, including components, pages, and styling.
+  * **`.gitignore`**: Specifies intentionally untracked files and directories for both backend and frontend environments.
+
+## Testing
+
+The backend includes test stories in `Backend/tests/test_stories.yml` to ensure the bot behaves as expected across different conversation paths.
+
+## Dependencies
+
+Key dependencies for the project include:
+
+  * **Backend (`Backend/requirements.txt`)**
+
+      * `rasa`
+      * `rasa-sdk`
+      * `aiohttp`
+      * `numpy`
+      * `tensorflow` (and related libraries)
+      * `requests`
+      * `PyYAML`
+      * ...and many more for various Rasa functionalities and integrations.
+
+  * **Frontend (`FrontEnd/package.json`)**
+
+      * `next`
+      * `react`
+      * `react-dom`
+      * `@rasahq/chat-widget-react`
+      * `tailwindcss`
+      * `typescript`
+      * `eslint` (and related plugins)

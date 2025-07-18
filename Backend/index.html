@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-ComAssist | 24/7 AI Support</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #212529; 
+        }
+        .hero-section {
+            background-color: #343a40; 
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .navbar-brand i {
+            color: #0d6efd;
+        }
+        /* Style for the widget container */
+        #rasa-webchat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-robot"></i> E-ComAssist
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="hero-section text-center">
+            <h1 class="display-4 fw-bold">Welcome to Our Support Center</h1>
+            <p class="lead text-body-secondary">
+                Our AI-powered assistant, E-ComAssist, is here to help you 24/7.
+                You can ask about order status, returns, or our shipping policies.
+            </p>
+            <hr class="my-4">
+            <p>For immediate assistance, please use the chat widget in the bottom-right corner.</p>
+        </div>
+    </div>
+    
+    <!-- 1. The container for the widget -->
+    <div id="rasa-webchat-container"></div>
+
+    <!-- 2. The library script from the 'rasa-webchat' package -->
+    <script src="rasa-webchat.js"></script>
+    <script>
+      function initWebChatWhenReady() {
+        if (window.WebChat && window.WebChat.default) {
+          window.WebChat.default.init({
+            selector: "#rasa-webchat-container",
+            socketUrl: "http://localhost:5005",
+            initPayload: "/greet",
+            customData: { language: "en" },
+            title: "E-ComAssist",
+            subtitle: "AI Support",
+            mainColor: "#0d6efd",
+            backgroundColor: "#212529",
+            headerTextColor: 'white',
+            inputTextFieldColor: 'white',
+            messageTextColor: 'white',
+            messageBackgroundColor: '#343a40'
+          });
+        } else {
+          setTimeout(initWebChatWhenReady, 100);
+        }
+      }
+      document.addEventListener("DOMContentLoaded", initWebChatWhenReady);
+    </script>
+</body>
+</html>

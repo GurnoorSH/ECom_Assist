@@ -1,0 +1,18 @@
+# Python / Rasa Backend
+Backend/venv/
+Backend/.rasa/
+Backend/models/
+Backend/__pycache__/
+Backend/db/
+*.db
+
+# Node.js / Next.js Frontend
+FrontEnd/node_modules/
+FrontEnd/.next/
+FrontEnd/out/
+FrontEnd/.env*.local
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store

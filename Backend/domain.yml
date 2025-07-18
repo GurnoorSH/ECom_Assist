@@ -1,0 +1,57 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - check_order_status
+  - request_return
+  - faq_shipping
+
+entities:
+  - order_number
+  - refund_reason
+slots:
+  order_number:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_number
+
+responses:
+ utter_greet:
+  - text: "Hello! How can I help you today? You can ask about order status, returns, or other questions."
+  
+ utter_goodbye:
+  - text: "Goodbye!"
+
+ utter_ask_order_number:
+  - text: "I can help with that. What is your order number?"
+
+ utter_faq_shipping:
+  - text: "We offer standard shipping (3-5 business days) and express shipping (1-2 business days). Costs are calculated at checkout."
+
+ utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+ utter_did_that_help:
+  - text: "Did that help you?"
+
+ utter_happy:
+  - text: "Great, carry on!"
+
+ utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+  - action_check_order_status # This will be our custom Python code

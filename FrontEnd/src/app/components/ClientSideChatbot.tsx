@@ -12,6 +12,7 @@ export default function ClientSideChatbot() {
       title="E-ComAssist"
       // subtitle="AI Support"
       profile-avatar="https://i.imgur.com/7k1hXzC.png"
+      use-rest="true"
     />
   );
 }
